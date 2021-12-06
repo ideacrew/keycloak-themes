@@ -1,0 +1,6 @@
+{
+    "themes": [{
+        "name" : "maine-sbm",
+        "types": [ "login"]
+    }]
+}

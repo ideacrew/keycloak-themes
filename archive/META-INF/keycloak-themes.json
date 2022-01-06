@@ -1,6 +1,10 @@
 {
     "themes": [{
-        "name" : "maine-sbm",
+        "name" : "maine-sbm-qa",
+        "types": [ "login"]
+    },
+   {
+        "name" : "maine-sbm-uat",
         "types": [ "login"]
     }]
 }

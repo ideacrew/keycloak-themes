@@ -1,6 +1,11 @@
 {
-    "themes": [{
-        "name" : "maine-sbm",
-        "types": [ "login"]
-    }]
+	"themes": [{
+		"name" : "maine-sbm",
+		"types": [ "login"]
+	},
+	{
+		"name" : "maine-cp",
+		"types": [ "login"]
+	}
+	]
 }

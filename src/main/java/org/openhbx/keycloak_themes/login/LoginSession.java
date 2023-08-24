@@ -1,15 +1,18 @@
 package org.openhbx.keycloak_themes.login;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 import org.keycloak.credential.CredentialModel;
 import org.keycloak.credential.CredentialProvider;
 import org.keycloak.models.KeycloakContext;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.ThemeManager;
-import org.keycloak.models.UserCredentialManager;
 import org.keycloak.provider.Provider;
 import org.keycloak.theme.Theme;
+import org.keycloak.theme.freemarker.FreeMarkerProvider;
 
 
 import org.keycloak.urls.HostnameProvider;
@@ -22,13 +25,11 @@ public class LoginSession extends org.openhbx.keycloak_themes.login.unimplemente
     private KeycloakContext context;
     private Map<Integer, Object> providers;
     private ThemeManager theme;
-    private UserCredentialManager userCredentialManager;
     
     public LoginSession(Theme t, CredentialModel currentCredentials) {
         initializeProviders();
         this.context = new LoginContext(this);
         this.theme = new LoginThemeManager(t);
-        this.userCredentialManager = new LoginUserCredentialManager(currentCredentials);
     }
     
     public LoginSession(Theme t) {
@@ -38,11 +39,11 @@ public class LoginSession extends org.openhbx.keycloak_themes.login.unimplemente
     private void initializeProviders() {
         this.providers = new HashMap<Integer, Object>();
         this.providers.put(HostnameProvider.class.hashCode(), new LoginHostnameProvider());
+        this.providers.put(FreeMarkerFreeMarkerProvider.class.hashCode(), new )
         
         CredentialProvider otpcp = new LoginOtpCredentialProvider(this);
         Integer cphash = CredentialProvider.class.hashCode() + "keycloak-otp".hashCode();
         providers.put(cphash, otpcp);
-        
     }
 
     @Override
@@ -63,12 +64,20 @@ public class LoginSession extends org.openhbx.keycloak_themes.login.unimplemente
     }
 
     @Override
-    public UserCredentialManager userCredentialManager() {
-        return this.userCredentialManager;
-    }
-
-    @Override
     public ThemeManager theme() {
         return this.theme;
     }
+    
+    @Override
+    public <T extends Provider> Set<T> getAllProviders(Class<T> clazz) {
+        return listProviderIds(clazz).stream()
+            .map(id -> getProvider(clazz, id))
+            .collect(Collectors.toSet());
+    }
+    
+    @Override
+    public <T extends Provider> Set<String> listProviderIds(Class<T> clazz) {
+        return this.providers.keySet().stream().map(id -> id.toString()).collect(Collectors.toSet());
+    }
+
 }

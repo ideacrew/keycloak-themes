@@ -1,6 +1,6 @@
 package org.openhbx.keycloak_themes.login;
 
-import javax.ws.rs.core.UriInfo;
+import jakarta.ws.rs.core.UriInfo;
 import org.keycloak.urls.HostnameProvider;
 import org.keycloak.urls.UrlType;
 

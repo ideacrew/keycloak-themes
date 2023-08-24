@@ -1,7 +1,11 @@
 package org.openhbx.keycloak_themes.login;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.stream.Stream;
+import org.keycloak.credential.CredentialModel;
+import org.keycloak.models.ClientModel;
+import org.keycloak.models.GroupModel;
+import org.keycloak.models.RoleModel;
+import org.keycloak.models.SubjectCredentialManager;
 import org.keycloak.models.UserModel;
 
 /**
@@ -13,8 +17,10 @@ public class LoginUserModel extends org.openhbx.keycloak_themes.login.unimplemen
     private String userName = "";
     private Long createdTimestamp;
     private boolean enabled = true;
+    private CredentialModel currentCredentials;
 
-    public LoginUserModel() {
+    public LoginUserModel(CredentialModel cm) {
+        this.currentCredentials = cm;
         this.createdTimestamp = System.currentTimeMillis();
     }
 
@@ -49,8 +55,37 @@ public class LoginUserModel extends org.openhbx.keycloak_themes.login.unimplemen
     }
 
     @Override
-    public Set<String> getRequiredActions() {
-        Set result = new HashSet<String>();
-        return result;
+    public Stream<String> getAttributeStream(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Stream<String> getRequiredActionsStream() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Stream<GroupModel> getGroupsStream() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public SubjectCredentialManager credentialManager() {
+        return new LoginUserCredentialManager(this.currentCredentials);
+    }
+
+    @Override
+    public Stream<RoleModel> getRealmRoleMappingsStream() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Stream<RoleModel> getClientRoleMappingsStream(ClientModel cm) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Stream<RoleModel> getRoleMappingsStream() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

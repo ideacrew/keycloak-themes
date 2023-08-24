@@ -2,20 +2,16 @@ package org.openhbx.keycloak_themes.login;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Stream;
 import org.keycloak.credential.CredentialInput;
 import org.keycloak.credential.CredentialModel;
-import org.keycloak.models.CredentialValidationOutput;
-import org.keycloak.models.KeycloakSession;
-import org.keycloak.models.RealmModel;
-import org.keycloak.models.UserCredentialManager;
-import org.keycloak.models.UserModel;
+import org.keycloak.models.SubjectCredentialManager;
 
 /**
  *
  * @author tevans
  */
-public class LoginUserCredentialManager implements UserCredentialManager {
+public class LoginUserCredentialManager implements SubjectCredentialManager {
     private List<CredentialModel> currentCredentials;
     
     public LoginUserCredentialManager(CredentialModel currentCredentials) {
@@ -26,104 +22,87 @@ public class LoginUserCredentialManager implements UserCredentialManager {
     }
 
     @Override
-    public boolean isValid(RealmModel rm, UserModel um, List<CredentialInput> list) {
+    public boolean isValid(List<CredentialInput> list) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean isValid(RealmModel rm, UserModel um, CredentialInput... cis) {
+    public boolean updateCredential(CredentialInput ci) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean updateCredential(RealmModel rm, UserModel um, CredentialInput ci) {
+    public void updateStoredCredential(CredentialModel cm) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public CredentialModel createCredentialThroughProvider(RealmModel rm, UserModel um, CredentialModel cm) {
+    public CredentialModel createStoredCredential(CredentialModel cm) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void updateCredentialLabel(RealmModel rm, UserModel um, String string, String string1) {
+    public boolean removeStoredCredentialById(String string) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void disableCredentialType(RealmModel rm, UserModel um, String string) {
+    public CredentialModel getStoredCredentialById(String string) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Set<String> getDisableableCredentialTypes(RealmModel rm, UserModel um) {
+    public Stream<CredentialModel> getStoredCredentialsStream() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean isConfiguredFor(RealmModel rm, UserModel um, String string) {
+    public Stream<CredentialModel> getStoredCredentialsByTypeStream(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public CredentialModel getStoredCredentialByNameAndType(String string, String string1) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean moveStoredCredentialTo(String string, String string1) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void updateCredentialLabel(String string, String string1) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void disableCredentialType(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Stream<String> getDisableableCredentialTypesStream() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isConfiguredFor(String string) {
         return false;
-        //throw new UnsupportedOperationException(string); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean isConfiguredLocally(RealmModel rm, UserModel um, String string) {
+    public boolean isConfiguredLocally(String string) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public CredentialValidationOutput authenticate(KeycloakSession ks, RealmModel rm, CredentialInput ci) {
+    public Stream<String> getConfiguredUserStorageCredentialTypesStream() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<String> getConfiguredUserStorageCredentialTypes(RealmModel rm, UserModel um) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void updateCredential(RealmModel rm, UserModel um, CredentialModel cm) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public CredentialModel createCredential(RealmModel rm, UserModel um, CredentialModel cm) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean removeStoredCredential(RealmModel rm, UserModel um, String string) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public CredentialModel getStoredCredentialById(RealmModel rm, UserModel um, String string) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<CredentialModel> getStoredCredentials(RealmModel rm, UserModel um) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<CredentialModel> getStoredCredentialsByType(RealmModel rm, UserModel um, String string) {
-        return this.currentCredentials;
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public CredentialModel getStoredCredentialByNameAndType(RealmModel rm, UserModel um, String string, String string1) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean moveCredentialTo(RealmModel rm, UserModel um, String string, String string1) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void close() {
+    public CredentialModel createCredentialThroughProvider(CredentialModel cm) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

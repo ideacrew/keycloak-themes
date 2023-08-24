@@ -5,10 +5,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.core.Response;
 import java.io.IOException;
 import java.net.URI;
 import java.util.List;
-import javax.ws.rs.core.Response;
 import org.keycloak.theme.Theme;
 import org.openhbx.keycloak_themes.login.TemplateRenderContext;
 

@@ -19,15 +19,15 @@ import org.openhbx.keycloak_themes.LoginThemeInventory;
  * @author tevans
  */
 public class TemplateRenderContext {
-    public static FreeMarkerLoginFormsProvider dummyLoginFormsProvider(Theme t, CredentialModel currentCredentials) {
-        KeycloakSession kSession = new LoginSession(t, currentCredentials);
+    public static FreeMarkerLoginFormsProvider dummyLoginFormsProvider(Theme t, CredentialModel currentCredentials, UserModel userModel) {
+        KeycloakSession kSession = new LoginSession(t, currentCredentials, userModel);
         FreeMarkerLoginFormsProvider provider = new FreeMarkerFormsProvider(kSession);
         provider.setActionUri(URI.create("https://keycloak/login"));
         return provider;
     }
     
     public static FreeMarkerLoginFormsProvider dummyLoginFormsProvider(Theme t) {
-        return dummyLoginFormsProvider(t, null);
+        return dummyLoginFormsProvider(t, null, null);
     }
     
     public static CredentialModel createMockCredential() {
@@ -43,15 +43,18 @@ public class TemplateRenderContext {
         } else if (LoginThemeInventory.CONFIG_TOPT_TEMPLATE.equalsIgnoreCase(templateName)) {
             CredentialModel cm = TemplateRenderContext.createMockCredential();
             cm.setType(CredentialModel.OTP);
-            lfp = TemplateRenderContext.dummyLoginFormsProvider(t, cm);
-            lfp.setUser(new LoginUserModel(cm));
+            UserModel user = new LoginUserModel(cm);
+            lfp = TemplateRenderContext.dummyLoginFormsProvider(t, cm, user);
+            lfp.setUser(user);
             return lfp.createResponse(RequiredAction.CONFIGURE_TOTP);
         } else if (LoginThemeInventory.OAUTH2_DEVICE_VERIFY_TEMPLATE.equalsIgnoreCase(templateName)) {
             return lfp.createOAuth2DeviceVerifyUserCodePage();
         } else if (LoginThemeInventory.OTP_TEMPLATE.equalsIgnoreCase(templateName)) {
             CredentialModel cm = TemplateRenderContext.createMockCredential();
             cm.setType(CredentialModel.OTP);
-            lfp = TemplateRenderContext.dummyLoginFormsProvider(t, cm);
+            UserModel uModel = new LoginUserModel(cm);
+            lfp = TemplateRenderContext.dummyLoginFormsProvider(t, cm, uModel);
+            lfp.setUser(uModel);
             return lfp.createLoginTotp();
         } else if (LoginThemeInventory.RESET_PASSWORD_TEMPLATE.equalsIgnoreCase(templateName)) {
             CredentialModel cm = TemplateRenderContext.createMockCredential();
@@ -65,6 +68,11 @@ public class TemplateRenderContext {
             lfp.setAuthContext(afc);
             return lfp.createPasswordReset();
         } else if (LoginThemeInventory.VERIFY_EMAIL_TEMPLATE.equalsIgnoreCase(templateName)) {
+            CredentialModel cm = TemplateRenderContext.createMockCredential();
+            cm.setType(CredentialModel.OTP);
+            UserModel uModel = new LoginUserModel(cm);
+            lfp = TemplateRenderContext.dummyLoginFormsProvider(t, cm, uModel);
+            lfp.setUser(uModel);
             return lfp.createResponse(RequiredAction.VERIFY_EMAIL);
         } else if (LoginThemeInventory.SELECT_AUTHENTICATOR_TEMPLATE.equalsIgnoreCase(templateName)) {
             return lfp.createSelectAuthenticator();

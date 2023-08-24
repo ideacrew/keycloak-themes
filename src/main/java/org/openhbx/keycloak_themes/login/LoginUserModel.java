@@ -1,5 +1,8 @@
 package org.openhbx.keycloak_themes.login;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 import org.keycloak.credential.CredentialModel;
 import org.keycloak.models.ClientModel;
@@ -87,5 +90,21 @@ public class LoginUserModel extends org.openhbx.keycloak_themes.login.unimplemen
     @Override
     public Stream<RoleModel> getRoleMappingsStream() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public Map<String, List<String>> getAttributes() {
+        Map<String, List<String>> aMap = new HashMap<String, List<String>>();
+        return aMap;
+    }
+    
+    @Override
+    public String getId() {
+        return "UserID";
+    }
+    
+    @Override
+    public String getEmail() {
+        return "UserEmail";
     }
 }

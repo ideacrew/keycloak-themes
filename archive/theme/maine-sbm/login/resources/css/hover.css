@@ -19,6 +19,6 @@
     z-index: 1;
 }
 
-.password-tip:hover .password-tip-text {
+.password-tip:hover, .password-tip:focus, .password-tip-text {
   visibility: visible;
 }

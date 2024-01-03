@@ -70,6 +70,6 @@ public class TemplateRenderContext {
         } else if (LoginThemeInventory.SELECT_AUTHENTICATOR_TEMPLATE.equalsIgnoreCase(templateName)) {
             return lfp.createSelectAuthenticator();
         }
-        return lfp.createLoginPassword();
+        return lfp.createLoginUsernamePassword();
     }
 }

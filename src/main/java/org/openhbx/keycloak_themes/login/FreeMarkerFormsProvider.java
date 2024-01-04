@@ -1,19 +1,18 @@
 package org.openhbx.keycloak_themes.login;
 
+import jakarta.ws.rs.core.Response;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Locale;
 import java.util.Map;
-import javax.ws.rs.core.Response;
 import org.jboss.logging.Logger;
 import org.keycloak.forms.login.freemarker.FreeMarkerLoginFormsProvider;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.theme.FreeMarkerException;
-import org.keycloak.theme.FreeMarkerUtil;
+import org.keycloak.theme.freemarker.FreeMarkerProvider;
 import org.keycloak.theme.Theme;
 import org.keycloak.utils.MediaType;
-import org.apache.commons.lang.exception.ExceptionUtils;
-
+import org.apache.commons.lang3.exception.ExceptionUtils;
 /**
  *
  * @author tevans
@@ -21,8 +20,8 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 public class FreeMarkerFormsProvider extends FreeMarkerLoginFormsProvider {
     private final Logger responseLogger = Logger.getLogger(FreeMarkerFormsProvider.class);
 
-    public FreeMarkerFormsProvider(KeycloakSession session, FreeMarkerUtil fmu) {
-        super(session, fmu);
+    public FreeMarkerFormsProvider(KeycloakSession session) {
+        super(session);
     }
 
     /**
@@ -37,9 +36,10 @@ public class FreeMarkerFormsProvider extends FreeMarkerLoginFormsProvider {
     @Override
     protected Response processTemplate(Theme theme, String templateName, Locale locale) {
         try {
+            this.freeMarker = session.getProvider(FreeMarkerProvider.class);
             String result = freeMarker.processTemplate(attributes, templateName, theme);
-            javax.ws.rs.core.MediaType mediaType = contentType == null ? MediaType.TEXT_HTML_UTF_8_TYPE : contentType;
-            Response.ResponseBuilder builder = Response.status(status == null ? Response.Status.OK : status).type(mediaType).language(locale).entity(result);
+            //MediaType mediaType = contentType == null ? MediaType.TEXT_HTML_UTF_8_TYPE : contentType;
+            Response.ResponseBuilder builder = Response.status(status == null ? Response.Status.OK : status).language(locale).entity(result);
             for (Map.Entry<String, String> entry : httpResponseHeaders.entrySet()) {
                 builder.header(entry.getKey(), entry.getValue());
             }
@@ -50,7 +50,7 @@ public class FreeMarkerFormsProvider extends FreeMarkerLoginFormsProvider {
             PrintWriter pw = new PrintWriter(sw, true);
             sw.write("Exception:\n\n");
             sw.write(ExceptionUtils.getMessage(e) + "\n");
-            sw.write(ExceptionUtils.getFullStackTrace(e) + "\n\n");
+            sw.write(ExceptionUtils.getStackTrace(e) + "\n\n");
             sw.write("Root Cause:\n\n");
             sw.write(ExceptionUtils.getRootCauseMessage(e) + "\n");
             ExceptionUtils.printRootCauseStackTrace(e, pw);

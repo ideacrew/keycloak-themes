@@ -1,8 +1,8 @@
 package org.openhbx.keycloak_themes.login;
 
+import jakarta.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.List;
-import javax.ws.rs.core.Response;
 import org.junit.Test;
 import org.keycloak.forms.login.freemarker.FreeMarkerLoginFormsProvider;
 import org.keycloak.theme.Theme;

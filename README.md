@@ -1,6 +1,6 @@
 # Keycloak Themes
 
-This project contains the various keycloak themes for our clients and Keycloak instances.  All themes are based on Keycloak 15.1.0.
+This project contains the various keycloak themes for our clients and Keycloak instances.  All themes are based on Keycloak 22.0.0.
 
 ## Prerequisites
 

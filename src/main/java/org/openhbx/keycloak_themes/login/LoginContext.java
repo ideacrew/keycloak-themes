@@ -1,9 +1,11 @@
 package org.openhbx.keycloak_themes.login;
 
+import jakarta.ws.rs.core.HttpHeaders;
 import java.net.URI;
 import java.util.Locale;
-import javax.ws.rs.core.HttpHeaders;
 import org.keycloak.common.ClientConnection;
+import org.keycloak.http.HttpRequest;
+import org.keycloak.http.HttpResponse;
 import org.keycloak.models.ClientModel;
 import org.keycloak.models.KeycloakContext;
 import org.keycloak.models.KeycloakSession;
@@ -95,6 +97,16 @@ public class LoginContext implements KeycloakContext {
 
     @Override
     public void setAuthenticationSession(AuthenticationSessionModel asm) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public HttpRequest getHttpRequest() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public HttpResponse getHttpResponse() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

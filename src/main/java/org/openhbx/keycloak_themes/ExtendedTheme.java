@@ -4,15 +4,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import org.keycloak.common.util.StringPropertyReplacer;
 import org.keycloak.common.util.SystemEnvProperties;
+import org.keycloak.models.RealmModel;
 import org.keycloak.theme.ClassLoaderTheme;
 import org.keycloak.theme.Theme;
+import org.keycloak.services.util.LocaleUtil;
 
 /**
  *
@@ -147,5 +151,15 @@ public class ExtendedTheme implements Theme {
         }
 
         return Locale.ENGLISH;
+    }
+
+    @Override
+    public Properties getEnhancedMessages(RealmModel realm, Locale locale) throws IOException {
+        if (locale == null){
+            return null;
+        }
+
+        Map<Locale, Properties> localeMessages = Collections.singletonMap(locale, getMessages(locale));
+        return LocaleUtil.enhancePropertiesWithRealmLocalizationTexts(realm, locale, localeMessages);
     }
 }

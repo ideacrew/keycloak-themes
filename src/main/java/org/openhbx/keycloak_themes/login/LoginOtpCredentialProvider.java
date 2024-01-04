@@ -45,7 +45,7 @@ public class LoginOtpCredentialProvider extends OTPCredentialProvider  {
     @Override
     public OTPCredentialModel getCredentialFromModel(CredentialModel credentialModel) {
         try {
-        OTPCredentialData credentialData = new OTPCredentialData("",0,0,0,"");
+        OTPCredentialData credentialData = new OTPCredentialData("",0,0,0,"", "");
         OTPSecretData secretData = new OTPSecretData("");
         credentialModel.setCredentialData(JsonSerialization.writeValueAsString(credentialData));
         credentialModel.setSecretData(JsonSerialization.writeValueAsString(secretData));
